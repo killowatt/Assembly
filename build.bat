@@ -1,9 +1,11 @@
 :: Copy source files
     copy boot.s build\boot.s
-    copy io.s build\io.s
+    copy functions.s build\functions.s
 
     copy kernel.c build\kernel.c
     copy io.h build\io.h
+    copy console.c build\console.c
+    copy console.h build\console.h
 
 :: Change directory
     cd build
@@ -15,13 +17,14 @@
 
 :: Build assembly files
     nasm -f elf32 boot.s
-    nasm -f elf32 io.s
+    nasm -f elf32 functions.s
 
 :: Build C files
+    tcc -c console.c
     tcc -c kernel.c
 
 :: Build elf executable
-    tcc -nostdlib -Wl,-Ttext,0x100000 boot.o kernel.o io.o -o kernel.elf
+    tcc -nostdlib -Wl,-Ttext,0x100000 boot.o functions.o console.o kernel.o -o kernel.elf
 
 :: Copy elf executable
     copy kernel.elf iso\boot\kernel.elf

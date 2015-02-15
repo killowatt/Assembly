@@ -1,4 +1,5 @@
 #include "io.h"
+#include "console.h"
 
 #define FRAMEBUFFER_COMMAND_PORT 0x3D4
 #define FRAMEBUFFER_DATA_PORT 0x3D5
@@ -15,15 +16,8 @@ void frameBufferMoveCursor(unsigned short position)
 }
 void kernel_main()
 {
-    *((unsigned char *) 0xB8000) = 'H';
-    *((unsigned char *) 0xB8001) = 0x0F;
-    *((unsigned char *) 0xB8002) = 'E';
-    *((unsigned char *) 0xB8003) = 0x0F;
-    *((unsigned char *) 0xB8004) = 'L';
-    *((unsigned char *) 0xB8005) = 0x0F;
-    *((unsigned char *) 0xB8006) = 'L';
-    *((unsigned char *) 0xB8007) = 0x0F;
-    *((unsigned char *) 0xB8008) = 'O';
-    *((unsigned char *) 0xB8009) = 0x0F;
-    frameBufferMoveCursor(12);
+    clearScreen(' ', 0x0F);
+    writeLine("Welcome to THE KERNEL 2.0", 0x0F);
+    writeLine("RohanOS INITIALIZED", 0x0F);
+    frameBufferMoveCursor(25);
 }

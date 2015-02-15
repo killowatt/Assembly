@@ -11,8 +11,6 @@ dd CHECKSUM
 kernel_stack:
 resb KERNEL_STACK_SIZE
 
-global out
-
 global _start
 _start:
     mov esp, kernel_stack + KERNEL_STACK_SIZE
